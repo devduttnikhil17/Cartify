@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,81 +13,95 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         .hero-gradient {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
-        
+
         .card-hover {
             transition: all 0.3s ease;
         }
-        
+
         .card-hover:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
-        
+
         .btn-primary {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             transition: all 0.3s ease;
+            border: 2px solid #ffffff
         }
-        
+
         .btn-primary:hover {
+            background: #ffffff;
+            color: #764ba2;
             transform: scale(1.05);
             box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+            border: 2px solid #764ba2;
         }
-        
+
         @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
         }
-        
+
         .float-animation {
             animation: float 6s ease-in-out infinite;
         }
-        
+
         .product-image {
             transition: transform 0.3s ease;
         }
-        
+
         .product-card:hover .product-image {
             transform: scale(1.1);
         }
-        
+
         .countdown {
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
         }
-        
+
         .category-card {
             transition: all 0.3s ease;
             cursor: pointer;
         }
-        
+
         .category-card:hover {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
         }
-        
+
         @media (max-width: 768px) {
             .mobile-menu {
                 display: none;
             }
+
             .mobile-menu.active {
                 display: block;
             }
         }
     </style>
 </head>
+
 <body class="bg-gray-50">
 
     <!-- Page Loader -->
-<div id="pageLoader" class="fixed inset-0 bg-white flex items-center justify-center z-50">
-  <div class="flex flex-col items-center">
-    <div class="w-16 h-16 border-4 border-purple-200 border-t-purple-600 rounded-full animate-spin"></div>
-    <p class="mt-4 text-purple-600 font-semibold text-lg">Loading Cartify...</p>
-  </div>
-</div>
+    <div id="pageLoader" class="fixed inset-0 bg-white flex items-center justify-center z-50">
+        <div class="flex flex-col items-center">
+            <div class="w-16 h-16 border-4 border-purple-200 border-t-purple-600 rounded-full animate-spin"></div>
+            <p class="mt-4 text-purple-600 font-semibold text-lg">Loading Cartify...</p>
+        </div>
+    </div>
 
     <!-- Navigation -->
     <nav class="bg-white shadow-lg sticky top-0 z-50">
@@ -94,19 +109,21 @@
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center space-x-8">
                     <div class="flex items-center">
-                        <span class="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Cartify</span>
+                        <span
+                            class="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Cartify</span>
                     </div>
                     <div class="hidden md:flex space-x-6">
                         <a href="ShopNow.html" class="text-gray-700 hover:text-purple-600 transition">Categories</a>
                         <a href="ShopNow.html" class="text-gray-700 hover:text-purple-600 transition">Deals</a>
                         <a href="ShopNow.html" class="text-gray-700 hover:text-purple-600 transition">New Arrivals</a>
-                        <a href="#" class="text-gray-700 hover:text-purple-600 transition">Brands</a>
+                        <a href="brands.html" class="text-gray-700 hover:text-purple-600 transition">Brands</a>
                     </div>
                 </div>
-                
+
                 <div class="hidden md:flex items-center space-x-4">
                     <div class="relative">
-                        <input type="text" placeholder="Search products..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:border-purple-500 w-64">
+                        <input type="text" placeholder="Search products..."
+                            class="pl-10 pr-4 py-2 border border-gray-300 rounded-full focus:outline-none focus:border-purple-500 w-64">
                         <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
                     </div>
                     <button class="relative p-2">
@@ -116,15 +133,17 @@
                     <button class="relative p-2">
                         <i class="fas fa-heart text-gray-700 text-xl"></i>
                     </button>
-                    <a href="auth.html" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full inline-block">Sign In</a>
+                    <a href="auth.html"
+                        class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full inline-block">Sign
+                        In</a>
 
                 </div>
-                
+
                 <button class="md:hidden" onclick="toggleMobileMenu()">
                     <i class="fas fa-bars text-2xl"></i>
                 </button>
             </div>
-            
+
             <!-- Mobile Menu -->
             <div id="mobileMenu" class="mobile-menu md:hidden pb-4">
                 <div class="flex flex-col space-y-3">
@@ -145,9 +164,10 @@
                 <h1 class="text-5xl md:text-6xl font-bold mb-6">Summer Collection 2026</h1>
                 <p class="text-xl mb-8 opacity-90">Discover the latest trends with up to 50% off on selected items</p>
                 <div class="flex flex-col sm:flex-row gap-4">
-                   <a href="ShopNow.html" class="btn-primary px-8 py-4 rounded-full inline-block text-center">Shop Now</a>
+                    <a href="ShopNow.html"
+                        class="btn-primary px-8 py-4 rounded-full inline-block text-center">Explore</a>
 
-        
+
                 </div>
                 <div class="mt-8 flex items-center space-x-8">
                     <div>
@@ -166,7 +186,8 @@
             </div>
             <div class="relative">
                 <div class="float-animation">
-                    <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=600&h=400&fit=crop" alt="Fashion" class="rounded-2xl shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=600&h=400&fit=crop"
+                        alt="Fashion" class="rounded-2xl shadow-2xl">
                 </div>
             </div>
         </div>
@@ -199,37 +220,55 @@
         <div class="max-w-7xl mx-auto">
             <h2 class="text-3xl font-bold text-center mb-12">Shop by Category</h2>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-               <a href="fashion.html" class="block">
-    <div class="category-card bg-white rounded-xl p-6 text-center shadow-md cursor-pointer">
-        <i class="fas fa-tshirt text-4xl text-purple-600 mb-4"></i>
-        <h3 class="font-semibold text-lg">Fashion</h3>
-        <p class="text-gray-500 text-sm mt-2">2,341 Products</p>
-    </div>
-</a>
+
+
+                <a href="fashion.html" class="block">
+                    <div
+                        class="category-card group bg-white rounded-xl p-6 text-center shadow-md cursor-pointer transition duration-300 hover:bg-purple-600 group-hover:scale-110 transform hover:-translate-y-1 translate-all">
+                        <i
+                            class="fas fa-tshirt text-4xl text-purple-600 mb-4 transition duration-300 group-hover:text-white group-hover:scale-110 transform hover:-translate-y-1 translate-all"></i>
+                        <h3 class="font-semibold text-lg text-black transition duration-300 group-hover:text-white">
+                            Fashion</h3>
+                        <p class="text-gray-500 text-sm mt-2 transition duration-300 group-hover:text-white">2,341
+                            Products</p>
+                    </div>
+                </a>
 
                 <a href="electronics.html" class="block">
-    <div class="category-card bg-white rounded-xl p-6 text-center shadow-md cursor-pointer">
-        <i class="fas fa-laptop text-4xl text-purple-600 mb-4"></i>
-        <h3 class="font-semibold text-lg">Electronics</h3>
-        <p class="text-gray-500 text-sm mt-2">2,341 Products</p>
-    </div>
-</a>
+                    <div
+                        class="category-card group bg-white rounded-xl p-6 text-center shadow-md cursor-pointer transition duration-300 hover:bg-purple-600 group-hover:scale-110 transform hover:-translate-y-1 translate-all">
+                        <i
+                            class="fas fa-laptop text-4xl text-purple-600 mb-4 transition duration-300 group-hover:text-white group-hover:scale-110 transform hover:-translate-y-1 translate-all"></i>
+                        <h3 class="font-semibold text-lg text-black transition duration-300 group-hover:text-white">
+                            Electronics</h3>
+                        <p class="text-gray-500 text-sm mt-2 transition duration-300 group-hover:text-white">2,341
+                            Products</p>
+                    </div>
+                </a>
 
                 <a href="home&living.html" class="block">
-    <div class="category-card bg-white rounded-xl p-6 text-center shadow-md cursor-pointer">
-        <i class="fas fa-home text-4xl text-purple-600 mb-4"></i>
-        <h3 class="font-semibold text-lg">Home & Living</h3>
-        <p class="text-gray-500 text-sm mt-2">2,341 Products</p>
-    </div>
-</a>
+                    <div
+                        class="category-card group bg-white rounded-xl p-6 text-center shadow-md cursor-pointer transition duration-300 hover:bg-purple-600 group-hover:scale-110 transform hover:-translate-y-1 translate-all">
+                        <i
+                            class="fas fa-home text-4xl text-purple-600 mb-4 transition duration-300 group-hover:text-white group-hover:scale-110 transform hover:-translate-y-1 translate-all"></i>
+                        <h3 class="font-semibold text-lg text-black transition duration-300 group-hover:text-white">Home
+                            & Living</h3>
+                        <p class="text-gray-500 text-sm mt-2 transition duration-300 group-hover:text-white">2,341
+                            Products</p>
+                    </div>
+                </a>
 
                 <a href="sports.html" class="block">
-    <div class="category-card bg-white rounded-xl p-6 text-center shadow-md cursor-pointer">
-        <i class="fas fa-dumbbell text-4xl text-purple-600 mb-4"></i>
-        <h3 class="font-semibold text-lg">Sports</h3>
-        <p class="text-gray-500 text-sm mt-2">2,341 Products</p>
-    </div>
-</a>
+                    <div
+                        class="category-card group bg-white rounded-xl p-6 text-center shadow-md cursor-pointer transition duration-300 hover:bg-purple-600 group-hover:scale-110 transform hover:-translate-y-1 translate-all">
+                        <i
+                            class="fas fa-dumbbell text-4xl text-purple-600 mb-4 transition duration-300 group-hover:text-white group-hover:scale-110 transform hover:-translate-y-1 translate-all"></i>
+                        <h3 class="font-semibold text-lg text-black transition duration-300 group-hover:text-white">
+                            Sports</h3>
+                        <p class="text-gray-500 text-sm mt-2 transition duration-300 group-hover:text-white">2,341
+                            Products</p>
+                    </div>
+                </a>
 
             </div>
         </div>
@@ -246,7 +285,8 @@
                 <!-- Product 1 -->
                 <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden card-hover">
                     <div class="relative overflow-hidden h-64">
-                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=300&fit=crop" alt="Product" class="product-image w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=300&fit=crop"
+                            alt="Product" class="product-image w-full h-full object-cover">
                         <span class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded text-sm">-30%</span>
                     </div>
                     <div class="p-4">
@@ -267,12 +307,14 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Product 2 -->
                 <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden card-hover">
                     <div class="relative overflow-hidden h-64">
-                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop" alt="Product" class="product-image w-full h-full object-cover">
-                        <span class="absolute top-2 right-2 bg-green-500 text-white px-2 py-1 rounded text-sm">New</span>
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop"
+                            alt="Product" class="product-image w-full h-full object-cover">
+                        <span
+                            class="absolute top-2 right-2 bg-green-500 text-white px-2 py-1 rounded text-sm">New</span>
                     </div>
                     <div class="p-4">
                         <h3 class="font-semibold text-lg mb-2">Apple Watch Series 8</h3>
@@ -291,11 +333,12 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Product 3 -->
                 <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden card-hover">
                     <div class="relative overflow-hidden h-64">
-                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop" alt="Product" class="product-image w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop"
+                            alt="Product" class="product-image w-full h-full object-cover">
                         <span class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded text-sm">-20%</span>
                     </div>
                     <div class="p-4">
@@ -316,11 +359,12 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Product 4 -->
                 <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden card-hover">
                     <div class="relative overflow-hidden h-64">
-                        <img src="https://images.unsplash.com/photo-1564466809058-bf4114d55352?w=400&h=300&fit=crop" alt="Product" class="product-image w-full h-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1564466809058-bf4114d55352?w=400&h=300&fit=crop"
+                            alt="Product" class="product-image w-full h-full object-cover">
                     </div>
                     <div class="p-4">
                         <h3 class="font-semibold text-lg mb-2">Designer Backpack</h3>
@@ -346,17 +390,18 @@
     <!-- Special Offers -->
     <section class="py-16 px-4">
         <div class="max-w-7xl mx-auto">
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-8 text-white">
+            <div class="grid grid-cols-1 gap-8 place-items-center">
+                <div
+                    class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-8 text-white max-w-xl w-full text-center">
                     <h3 class="text-2xl font-bold mb-4">Free Shipping</h3>
                     <p class="mb-6">On all orders over $50. Shop now and save on delivery!</p>
-                    <button class="bg-white text-purple-600 px-6 py-3 rounded-full font-semibold hover:shadow-lg transition">Learn More</button>
+                    <a href="freeshipping.html"
+                        class="bg-white text-purple-600 px-6 py-3 rounded-full font-semibold inline-block transition-all duration-300 ease-in-out hover:bg-purple-600 hover:text-white hover:scale-105">
+                        Learn More
+                    </a>
                 </div>
-                <div class="bg-gradient-to-r from-pink-500 to-orange-500 rounded-2xl p-8 text-white">
-                    <h3 class="text-2xl font-bold mb-4">Member Exclusive</h3>
-                    <p class="mb-6">Join our membership program and get 15% off your first order!</p>
-                    <button class="bg-white text-orange-600 px-6 py-3 rounded-full font-semibold hover:shadow-lg transition">Join Now</button>
-                </div>
+
+
             </div>
         </div>
     </section>
@@ -365,10 +410,13 @@
     <section class="bg-purple-50 py-16 px-4">
         <div class="max-w-4xl mx-auto text-center">
             <h2 class="text-3xl font-bold mb-4">Stay in the Loop</h2>
-            <p class="text-gray-600 mb-8">Subscribe to our newsletter and get exclusive deals, new arrivals, and style tips!</p>
+            <p class="text-gray-600 mb-8">Subscribe to our newsletter and get exclusive deals, new arrivals, and style
+                tips!</p>
             <form class="flex flex-col sm:flex-row gap-4 justify-center">
-                <input type="email" placeholder="Enter your email" class="px-6 py-3 rounded-full border border-gray-300 focus:outline-none focus:border-purple-500 flex-1 max-w-md">
-                <button type="submit" class="btn-primary px-8 py-3 rounded-full text-white font-semibold">Subscribe</button>
+                <input type="email" placeholder="Enter your email"
+                    class="px-6 py-3 rounded-full border border-gray-300 focus:outline-none focus:border-purple-500 flex-1 max-w-md">
+                <button type="submit"
+                    class="btn-primary px-8 py-3 rounded-full text-white font-semibold">Subscribe</button>
             </form>
         </div>
     </section>
@@ -377,8 +425,11 @@
     <footer class="bg-gray-900 text-white py-12 px-4">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-                <h3 class="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Cartify</h3>
-                <p class="text-gray-400 mb-4">Your premium shopping destination for the latest trends and best deals.</p>
+                <h3
+                    class="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    Cartify</h3>
+                <p class="text-gray-400 mb-4">Your premium shopping destination for the latest trends and best deals.
+                </p>
                 <div class="flex space-x-4">
                     <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook-f"></i></a>
                     <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-twitter"></i></a>
@@ -480,13 +531,14 @@
 
 
 
-  window.addEventListener("load", function () {
-    const loader = document.getElementById("pageLoader");
-    setTimeout(() => {
-      loader.style.display = "none";
-    }, 400); // loader duration (ms)
-  });
+        window.addEventListener("load", function () {
+            const loader = document.getElementById("pageLoader");
+            setTimeout(() => {
+                loader.style.display = "none";
+            }, 400); // loader duration (ms)
+        });
 
     </script>
 </body>
+
 </html>
