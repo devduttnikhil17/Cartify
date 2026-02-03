@@ -130,9 +130,15 @@
                         <i class="fas fa-shopping-cart text-gray-700 text-xl"></i>
 
                     </button>
-                    <button class="relative p-2">
-                        <i class="fas fa-heart text-gray-700 text-xl"></i>
-                    </button>
+
+                    <!-- Cart Icon -->
+<a href="cart.html" class="relative p-2">
+    <i class="fas fa-shopping-cart text-gray-700 text-xl"></i>
+    <span id="cartBadge"
+          class="absolute -top-1 -right-1 bg-purple-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+        0
+    </span>
+</a>
                     <a href="auth.html"
                         class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full inline-block">Sign
                         In</a>
@@ -274,118 +280,7 @@
         </div>
     </section>
 
-    <!-- Featured Products -->
-    <section class="py-16 px-4 bg-gray-100">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex justify-between items-center mb-12">
-                <h2 class="text-3xl font-bold">Featured Products</h2>
-                <a href="ShopNow.html" class="text-purple-600 hover:underline">View All →</a>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Product 1 -->
-                <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden card-hover">
-                    <div class="relative overflow-hidden h-64">
-                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=300&fit=crop"
-                            alt="Product" class="product-image w-full h-full object-cover">
-                        <span class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded text-sm">-30%</span>
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-semibold text-lg mb-2">Nike Air Max 270</h3>
-                        <p class="text-gray-500 text-sm mb-3">Premium Running Shoes</p>
-                        <div class="flex items-center mb-3">
-                            <span class="text-yellow-400">★★★★★</span>
-                            <span class="text-gray-500 text-sm ml-2">(234)</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <span class="text-2xl font-bold text-purple-600">$89</span>
-                                <span class="text-gray-400 line-through ml-2">$127</span>
-                            </div>
-                            <button class="bg-purple-600 text-white p-2 rounded-lg hover:bg-purple-700 transition">
-                                <i class="fas fa-shopping-cart"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 2 -->
-                <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden card-hover">
-                    <div class="relative overflow-hidden h-64">
-                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop"
-                            alt="Product" class="product-image w-full h-full object-cover">
-                        <span
-                            class="absolute top-2 right-2 bg-green-500 text-white px-2 py-1 rounded text-sm">New</span>
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-semibold text-lg mb-2">Apple Watch Series 8</h3>
-                        <p class="text-gray-500 text-sm mb-3">Smart Watch</p>
-                        <div class="flex items-center mb-3">
-                            <span class="text-yellow-400">★★★★★</span>
-                            <span class="text-gray-500 text-sm ml-2">(512)</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <span class="text-2xl font-bold text-purple-600">$399</span>
-                            </div>
-                            <button class="bg-purple-600 text-white p-2 rounded-lg hover:bg-purple-700 transition">
-                                <i class="fas fa-shopping-cart"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 3 -->
-                <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden card-hover">
-                    <div class="relative overflow-hidden h-64">
-                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop"
-                            alt="Product" class="product-image w-full h-full object-cover">
-                        <span class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded text-sm">-20%</span>
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-semibold text-lg mb-2">Sony WH-1000XM4</h3>
-                        <p class="text-gray-500 text-sm mb-3">Wireless Headphones</p>
-                        <div class="flex items-center mb-3">
-                            <span class="text-yellow-400">★★★★☆</span>
-                            <span class="text-gray-500 text-sm ml-2">(189)</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <span class="text-2xl font-bold text-purple-600">$279</span>
-                                <span class="text-gray-400 line-through ml-2">$349</span>
-                            </div>
-                            <button class="bg-purple-600 text-white p-2 rounded-lg hover:bg-purple-700 transition">
-                                <i class="fas fa-shopping-cart"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product 4 -->
-                <div class="product-card bg-white rounded-xl shadow-lg overflow-hidden card-hover">
-                    <div class="relative overflow-hidden h-64">
-                        <img src="https://images.unsplash.com/photo-1564466809058-bf4114d55352?w=400&h=300&fit=crop"
-                            alt="Product" class="product-image w-full h-full object-cover">
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-semibold text-lg mb-2">Designer Backpack</h3>
-                        <p class="text-gray-500 text-sm mb-3">Travel & Lifestyle</p>
-                        <div class="flex items-center mb-3">
-                            <span class="text-yellow-400">★★★★★</span>
-                            <span class="text-gray-500 text-sm ml-2">(92)</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <span class="text-2xl font-bold text-purple-600">$149</span>
-                            </div>
-                            <button class="bg-purple-600 text-white p-2 rounded-lg hover:bg-purple-700 transition">
-                                <i class="fas fa-shopping-cart"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    
 
     <!-- Special Offers -->
     <section class="py-16 px-4">
@@ -539,6 +434,21 @@
         });
 
     </script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        if (localStorage.getItem('cartify_cart')) {
+            const cart = JSON.parse(localStorage.getItem('cartify_cart'));
+            const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const badge = document.getElementById('cartBadge');
+            if (badge) {
+                badge.textContent = total;
+                badge.style.display = total > 0 ? 'flex' : 'none';
+            }
+        }
+    });
+</script>
+
 </body>
 
 </html>
