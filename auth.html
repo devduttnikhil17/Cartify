@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication | Cartify</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="favicon.ico.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .gradient-bg:hover {
+            background: linear-gradient(135deg, #5a6fd6 0%, #6a4190 100%);
+        }
+        
+        .input-focus:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+        
+        .form-container {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .form-hidden {
+            opacity: 0;
+            transform: translateY(10px);
+            pointer-events: none;
+            position: absolute;
+            width: 100%;
+        }
+        
+        .form-visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+        
+        .card-shadow {
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.15);
+        }
+        
+        .btn-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .input-icon {
+            color: #9ca3af;
+        }
+        
+        .password-toggle {
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        
+        .password-toggle:hover {
+            color: #667eea;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+<!-- Loading Animation -->
+
+    <div id="pageLoader" class="fixed inset-0 bg-white flex items-center justify-center z-50">
+  <div class="flex flex-col items-center">
+    <div class="w-14 h-14 border-4 border-purple-200 border-t-purple-600 rounded-full animate-spin"></div>
+    <p class="mt-4 text-purple-600 font-semibold">Loading Cartify...</p>
+  </div>
+</div>
+
+    <!-- Minimal Navigation -->
+    <nav class="py-4 px-6">
+        <div class="max-w-7xl mx-auto">
+            <a href="index.html" class="flex items-center gap-2 w-fit">
+
+                <a href="index.html" class="text-2xl font-bold gradient-text">
+  Cartify
+</a>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex items-center justify-center px-4 py-8 min-h-[calc(100vh-80px)]">
+        <div class="w-full max-w-md">
+            <!-- Auth Card -->
+            <div class="bg-white rounded-3xl card-shadow p-8 md:p-10 relative overflow-hidden">
+                <!-- Decorative Elements -->
+                <div class="absolute top-0 right-0 w-32 h-32 gradient-bg opacity-10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+                <div class="absolute bottom-0 left-0 w-24 h-24 gradient-bg opacity-10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+                
+                <!-- Header -->
+                <div class="text-center mb-8 relative z-10">
+                    <h1 class="text-3xl font-bold gradient-text mb-2">Cartify</h1>
+                    <p id="authSubtitle" class="text-gray-500 text-sm">Welcome back! Please login to your account</p>
+                </div>
+
+                <!-- Forms Container -->
+                <div class="relative" style="min-height: 320px;">
+                    <!-- Login Form -->
+                    <form id="loginForm" class="form-container form-visible space-y-5">
+                        <!-- Email Input -->
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i class="fas fa-envelope input-icon"></i>
+                            </div>
+                            <input 
+                                type="email" 
+                                placeholder="Email address" 
+                                class="w-full pl-12 pr-4 py-3.5 border border-gray-200 rounded-xl input-focus outline-none transition-all duration-200 text-gray-700 placeholder-gray-400"
+                                required
+                            >
+                        </div>
+
+                        <!-- Password Input -->
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i class="fas fa-lock input-icon"></i>
+                            </div>
+                            <input 
+                                type="password" 
+                                id="loginPassword"
+                                placeholder="Password" 
+                                class="w-full pl-12 pr-12 py-3.5 border border-gray-200 rounded-xl input-focus outline-none transition-all duration-200 text-gray-700 placeholder-gray-400"
+                                required
+                            >
+                            <button type="button" class="absolute inset-y-0 right-0 pr-4 flex items-center password-toggle" onclick="togglePassword('loginPassword', this)">
+                                <i class="fas fa-eye input-icon"></i>
+                            </button>
+                        </div>
+
+                        <!-- Forgot Password -->
+                        <div class="text-right">
+                            <a href="#" class="text-sm text-purple-600 hover:text-purple-700 transition-colors">Forgot password?</a>
+                        </div>
+
+                        <!-- Login Button -->
+                        <button 
+                            type="submit" 
+                            class="w-full gradient-bg text-white py-3.5 rounded-xl font-semibold btn-hover transition-all duration-300"
+                        >
+                            Login
+                        </button>
+
+                        <!-- Divider -->
+                        <div class="flex items-center gap-4 my-6">
+                            <div class="flex-1 h-px bg-gray-200"></div>
+                            <span class="text-gray-400 text-sm">or</span>
+                            <div class="flex-1 h-px bg-gray-200"></div>
+                        </div>
+
+                        <!-- Social Login -->
+                        <div class="flex gap-3">
+                            <button type="button" class="flex-1 flex items-center justify-center gap-2 py-3 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors">
+                                <i class="fab fa-google text-red-500"></i>
+                                <span class="text-gray-600 text-sm font-medium">Google</span>
+                            </button>
+
+                        </div>
+
+                        <!-- Toggle to Signup -->
+                        <p class="text-center text-gray-500 text-sm mt-6">
+                            Don't have an account? 
+                            <button type="button" onclick="toggleForms('signup')" class="text-purple-600 font-semibold hover:text-purple-700 transition-colors">Sign up</button>
+                        </p>
+                    </form>
+
+                    <!-- Signup Form -->
+                    <form id="signupForm" class="form-container form-hidden space-y-4">
+                        <!-- Full Name Input -->
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i class="fas fa-user input-icon"></i>
+                            </div>
+                            <input 
+                                type="text" 
+                                placeholder="Full name" 
+                                class="w-full pl-12 pr-4 py-3.5 border border-gray-200 rounded-xl input-focus outline-none transition-all duration-200 text-gray-700 placeholder-gray-400"
+                                required
+                            >
+                        </div>
+
+                        <!-- Email Input -->
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i class="fas fa-envelope input-icon"></i>
+                            </div>
+                            <input 
+                                type="email" 
+                                placeholder="Email address" 
+                                class="w-full pl-12 pr-4 py-3.5 border border-gray-200 rounded-xl input-focus outline-none transition-all duration-200 text-gray-700 placeholder-gray-400"
+                                required
+                            >
+                        </div>
+
+                        <!-- Password Input -->
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i class="fas fa-lock input-icon"></i>
+                            </div>
+                            <input 
+                                type="password" 
+                                id="signupPassword"
+                                placeholder="Password" 
+                                class="w-full pl-12 pr-12 py-3.5 border border-gray-200 rounded-xl input-focus outline-none transition-all duration-200 text-gray-700 placeholder-gray-400"
+                                required
+                            >
+                            <button type="button" class="absolute inset-y-0 right-0 pr-4 flex items-center password-toggle" onclick="togglePassword('signupPassword', this)">
+                                <i class="fas fa-eye input-icon"></i>
+                            </button>
+                        </div>
+
+                        <!-- Confirm Password Input -->
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i class="fas fa-lock input-icon"></i>
+                            </div>
+                            <input 
+                                type="password" 
+                                id="confirmPassword"
+                                placeholder="Confirm password" 
+                                class="w-full pl-12 pr-12 py-3.5 border border-gray-200 rounded-xl input-focus outline-none transition-all duration-200 text-gray-700 placeholder-gray-400"
+                                required
+                            >
+                            <button type="button" class="absolute inset-y-0 right-0 pr-4 flex items-center password-toggle" onclick="togglePassword('confirmPassword', this)">
+                                <i class="fas fa-eye input-icon"></i>
+                            </button>
+                        </div>
+
+                        <!-- Terms Checkbox -->
+                        <div class="flex items-start gap-3 mt-2">
+                            <input type="checkbox" id="terms" class="w-4 h-4 mt-1 accent-purple-600" required>
+                            <label for="terms" class="text-gray-500 text-sm">
+                                I agree to the <a href="#" class="text-purple-600 hover:text-purple-700">Terms of Service</a> and <a href="#" class="text-purple-600 hover:text-purple-700">Privacy Policy</a>
+                            </label>
+                        </div>
+
+                        <!-- Signup Button -->
+                        <button 
+                            type="submit" 
+                            class="w-full gradient-bg text-white py-3.5 rounded-xl font-semibold btn-hover transition-all duration-300 mt-4"
+                        >
+                            Create Account
+                        </button>
+
+                        <!-- Toggle to Login -->
+                        <p class="text-center text-gray-500 text-sm mt-4">
+                            Already have an account? 
+                            <button type="button" onclick="toggleForms('login')" class="text-purple-600 font-semibold hover:text-purple-700 transition-colors">Login</button>
+                        </p>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Footer Text -->
+            <p class="text-center text-gray-400 text-sm mt-6">
+                &copy; 2025 Cartify. All rights reserved. <br>
+                Made with ❤️ by Devdutt Kumar Nikhil
+            </p>
+        </div>
+    </main>
+
+    <script>
+        // Toggle between Login and Signup forms
+        function toggleForms(form) {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            const subtitle = document.getElementById('authSubtitle');
+
+            if (form === 'signup') {
+                loginForm.classList.remove('form-visible');
+                loginForm.classList.add('form-hidden');
+                signupForm.classList.remove('form-hidden');
+                signupForm.classList.add('form-visible');
+                subtitle.textContent = 'Create your account to get started';
+            } else {
+                signupForm.classList.remove('form-visible');
+                signupForm.classList.add('form-hidden');
+                loginForm.classList.remove('form-hidden');
+                loginForm.classList.add('form-visible');
+                subtitle.textContent = 'Welcome back! Please login to your account';
+            }
+        }
+
+        // Toggle password visibility
+        function togglePassword(inputId, button) {
+            const input = document.getElementById(inputId);
+            const icon = button.querySelector('i');
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // Form submission handlers (demo only)
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Add loading state
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Logging in...';
+            btn.disabled = true;
+
+            // Simulate API call
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                alert('Login successful! (Demo)');
+            }, 1500);
+        });
+
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+
+            // Add loading state
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Creating account...';
+            btn.disabled = true;
+
+            // Simulate API call
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                alert('Account created successfully! (Demo)');
+                toggleForms('login');
+            }, 1500);
+        });
+
+
+        window.addEventListener("load", () => {
+  const loader = document.getElementById("pageLoader");
+  setTimeout(() => {
+    loader.style.display = "none";
+  }, 400);
+});
+
+
+    </script>
+</body>
+</html>
+```
