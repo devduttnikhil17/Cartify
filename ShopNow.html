@@ -1,0 +1,824 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Now | Cartify</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.ico.png">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#667eea',
+                        secondary: '#764ba2',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(102, 126, 234, 0.4);
+        }
+        .product-card {
+            transition: all 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+
+    <!-- Page Loader -->
+<div id="pageLoader" class="fixed inset-0 bg-white flex items-center justify-center z-50">
+  <div class="flex flex-col items-center">
+    <div class="w-16 h-16 border-4 border-purple-200 border-t-purple-600 rounded-full animate-spin"></div>
+    <p class="mt-4 text-purple-600 font-semibold text-lg">Loading Cartify...</p>
+  </div>
+</div>
+
+    
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold gradient-text">
+  Cartify
+</a>
+                </div>
+
+                <!-- Search Bar (Hidden on mobile) -->
+                <div class="hidden md:flex flex-1 max-w-lg mx-8">
+                    <div class="relative w-full">
+                        <input type="text" placeholder="Search products..." 
+                               class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition">
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    </div>
+                </div>
+
+                <!-- Right Nav Items -->
+                <div class="flex items-center space-x-6">
+                    <!-- Mobile Search Icon -->
+                    <button class="md:hidden text-gray-600 hover:text-primary transition">
+                        <i class="fas fa-search"></i>
+                    </button>
+
+                    <!-- Cart Icon -->
+                    <a href="cart.html" class="relative p-2">
+    <i class="fas fa-shopping-cart text-xl"></i>
+    <span id="cartBadge"
+          class="absolute -top-1 -right-1 bg-purple-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+        0
+    </span>
+</a>
+
+
+
+                    <!-- Sign In Button -->
+                    <a href="auth.html" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 rounded-full inline-block">Sign In</a>
+
+                </div>
+            </div>
+            
+            <!-- Mobile Search Bar (Visible only on mobile) -->
+            <div class="md:hidden pb-3">
+                <div class="relative">
+                    <input type="text" placeholder="Search products..." 
+                           class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="bg-white border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 mt-8">
+  <div class="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-10 text-center shadow-lg">
+    <h1 class="text-4xl md:text-5xl font-bold text-white mb-3">
+      Explore Here
+    </h1>
+    <p class="text-white opacity-90 text-lg">
+      Browse categories and discover top products
+    </p>
+  </div>
+</div>
+
+    </header>
+
+        <!-- Breadcrumb Navigation -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+        <nav class="flex text-sm" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li><a href="index.html" class="text-gray-500 hover:text-purple-600">Home</a></li>
+                <li><span class="text-gray-400">/</span></li>
+                <li><a href="ShopNow.html" class="text-gray-500 hover:text-purple-600">Shop</a></li>
+            </ol>
+        </nav>
+    </div>
+
+    <!-- SECTION 1: Fashion -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-900">Fashion</h2>
+<a href="fashion.html" class="text-purple-600 font-semibold">View All →</a>
+
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <!-- Product Card 1 -->
+                <div class="product-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
+                    <div class="aspect-square bg-gray-200 flex items-center justify-center relative overflow-hidden">
+                        <img src="image/jacket.jpeg" alt="Premium Leather Jacket" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-semibold text-gray-900 mb-1">Premium Leather Jacket</h3>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star-half-alt text-yellow-400 text-sm"></i>
+                            <span class="text-xs text-gray-500 ml-1">(128)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-gray-900">$299.00</span>
+                            <button
+onclick="addToCart({
+  id: 201,
+  name: 'Premium Leather Jacket',
+  price: 299,
+  image: 'image/jacket.jpeg'
+})"
+class="btn-primary text-white px-3 py-2 rounded-lg text-sm font-medium">
+    <i class="fas fa-cart-plus mr-1"></i> Add
+</button>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="product-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
+                    <div class="aspect-square bg-gray-200 flex items-center justify-center relative overflow-hidden">
+                        <img src="image/silk dress.jpeg" alt="Silk Evening Dress" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-semibold text-gray-900 mb-1">Silk Evening Dress</h3>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="far fa-star text-yellow-400 text-sm"></i>
+                            <span class="text-xs text-gray-500 ml-1">(89)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-gray-900">$189.00</span>
+                            <button
+onclick="addToCart({
+  id: 202,
+  name: 'Silk Evening Dress',
+  price: 189,
+  image: 'image/silk dress.jpeg'
+})"
+class="btn-primary text-white px-3 py-2 rounded-lg text-sm font-medium">
+    <i class="fas fa-cart-plus mr-1"></i> Add
+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="product-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
+                    <div class="aspect-square bg-gray-200 flex items-center justify-center relative overflow-hidden">
+                        <img src="image/sneakers.jpeg" alt="Designer Sneakers" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-semibold text-gray-900 mb-1">Designer Sneakers</h3>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <span class="text-xs text-gray-500 ml-1">(256)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-gray-900">$149.00</span>
+                            <button
+onclick="addToCart({
+  id: 203,
+  name: 'Designer Sneakers',
+  price: 149,
+  image: 'image/sneakers.jpeg'
+})"
+class="btn-primary text-white px-3 py-2 rounded-lg text-sm font-medium">
+    <i class="fas fa-cart-plus mr-1"></i> Add
+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 4 -->
+                <div class="product-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
+                    <div class="aspect-square bg-gray-200 flex items-center justify-center relative overflow-hidden">
+                        <img src="image/t shirt.jpeg" alt="Classic White T-Shirt" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-semibold text-gray-900 mb-1">Classic White T-Shirt</h3>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="far fa-star text-yellow-400 text-sm"></i>
+                            <span class="text-xs text-gray-500 ml-1">(47)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-gray-900">$45.00</span>
+                            <button
+onclick="addToCart({
+  id: 204,
+  name: 'Classic White T-Shirt',
+  price: 45,
+  image: 'image/t shirt.jpeg'
+})"
+class="btn-primary text-white px-3 py-2 rounded-lg text-sm font-medium">
+    <i class="fas fa-cart-plus mr-1"></i> Add
+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: Electronics -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-900">Electronics</h2>
+                <a href="electronics.html" class="text-purple-600 font-semibold">View All →</a>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Product Card 1 -->
+                <div class="product-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
+                    <div class="aspect-square bg-gray-200 flex items-center justify-center relative overflow-hidden">
+                        <img src="image/smartphone.jpeg" alt="Smartphone Pro" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-semibold text-gray-900 mb-1">Smartphone Pro</h3>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <span class="text-xs text-gray-500 ml-1">(512)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-gray-900">$899.00</span>
+                            <button
+onclick="addToCart({
+  id: 205,
+  name: 'Smartphone Pro',
+  price: 899,
+  image: 'image/smartphone.jpeg'
+})"
+class="btn-primary text-white px-3 py-2 rounded-lg text-sm font-medium">
+    <i class="fas fa-cart-plus mr-1"></i> Add
+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="product-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
+                    <div class="aspect-square bg-gray-200 flex items-center justify-center relative overflow-hidden">
+                        <img src="image/headphone.jpeg" alt="Wireless Headphones" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-semibold text-gray-900 mb-1">Wireless Headphones</h3>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star-half-alt text-yellow-400 text-sm"></i>
+                            <span class="text-xs text-gray-500 ml-1">(187)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-gray-900">$199.00</span>
+                            <button
+onclick="addToCart({
+  id: 206,
+  name: 'Wireless Headphones',
+  price: 199,
+  image: 'image/headphone.jpeg'
+})"
+class="btn-primary text-white px-3 py-2 rounded-lg text-sm font-medium">
+    <i class="fas fa-cart-plus mr-1"></i> Add
+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="product-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
+                    <div class="aspect-square bg-gray-200 flex items-center justify-center relative overflow-hidden">
+                        <img src="image/apple watch.jpeg" alt="Smart Watch" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-semibold text-gray-900 mb-1">Smart Watch</h3>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="far fa-star text-yellow-400 text-sm"></i>
+                            <span class="text-xs text-gray-500 ml-1">(95)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-gray-900">$249.00</span>
+                            <button
+onclick="addToCart({
+  id: 207,
+  name: 'Smart Watch',
+  price: 199,
+  image: 'image/apple watch.jpeg'
+})"
+class="btn-primary text-white px-3 py-2 rounded-lg text-sm font-medium">
+    <i class="fas fa-cart-plus mr-1"></i> Add
+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 4 -->
+                <div class="product-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
+                    <div class="aspect-square bg-gray-200 flex items-center justify-center relative overflow-hidden">
+                        <img src="image/laptop stand.jpeg" alt="Laptop Stand" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-semibold text-gray-900 mb-1">Laptop Stand</h3>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <span class="text-xs text-gray-500 ml-1">(143)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-gray-900">$89.00</span>
+                            <button
+onclick="addToCart({
+  id: 208,
+  name: 'Laptop Stand',
+  price: 89,
+  image: 'image/laptop stand.jpeg'
+})"
+class="btn-primary text-white px-3 py-2 rounded-lg text-sm font-medium">
+    <i class="fas fa-cart-plus mr-1"></i> Add
+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: Home & Living -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-900">Home & Living</h2>
+                <a href="home&living.html" class="text-purple-600 font-semibold">View All →</a>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Product Card 1 -->
+                <div class="product-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
+                    <div class="aspect-square bg-gray-200 flex items-center justify-center relative overflow-hidden">
+                        <img src="image/chair.jpeg" alt="Modern Chair" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-semibold text-gray-900 mb-1">Modern Chair</h3>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="far fa-star text-yellow-400 text-sm"></i>
+                            <span class="text-xs text-gray-500 ml-1">(67)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-gray-900">$179.00</span>
+                            <button
+onclick="addToCart({
+  id: 209,
+  name: 'Modern Chair',
+  price: 179,
+  image: 'image/chair.jpeg'
+})"
+class="btn-primary text-white px-3 py-2 rounded-lg text-sm font-medium">
+    <i class="fas fa-cart-plus mr-1"></i> Add
+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="product-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
+                    <div class="aspect-square bg-gray-200 flex items-center justify-center relative overflow-hidden">
+                        <img src="image/vase.jpeg" alt="Ceramic Vase" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-semibold text-gray-900 mb-1">Ceramic Vase</h3>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <span class="text-xs text-gray-500 ml-1">(234)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-gray-900">$65.00</span>
+                            <button
+onclick="addToCart({
+  id: 210,
+  name: 'Ceramic Vase',
+  price: 65,
+  image: 'image/vase.jpeg'
+})"
+class="btn-primary text-white px-3 py-2 rounded-lg text-sm font-medium">
+    <i class="fas fa-cart-plus mr-1"></i> Add
+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="product-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
+                    <div class="aspect-square bg-gray-200 flex items-center justify-center relative overflow-hidden">
+                        <img src="image/lamp.jpeg" alt="Table Lamp" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-semibold text-gray-900 mb-1">Table Lamp</h3>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star-half-alt text-yellow-400 text-sm"></i>
+                            <span class="text-xs text-gray-500 ml-1">(112)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-gray-900">$129.00</span>
+                            <button
+onclick="addToCart({
+  id: 211,
+  name: 'Table Lamp',
+  price: 65,
+  image: 'image/lamp.jpeg'
+})"
+class="btn-primary text-white px-3 py-2 rounded-lg text-sm font-medium">
+    <i class="fas fa-cart-plus mr-1"></i> Add
+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 4 -->
+                <div class="product-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
+                    <div class="aspect-square bg-gray-200 flex items-center justify-center relative overflow-hidden">
+                        <img src="image/plant.jpeg" alt="Decorative Plant" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-semibold text-gray-900 mb-1">Decorative Plant</h3>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="far fa-star text-yellow-400 text-sm"></i>
+                            <span class="text-xs text-gray-500 ml-1">(53)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-gray-900">$49.00</span>
+                            <button
+onclick="addToCart({
+  id: 212,
+  name: 'Decorative Plant',
+  price: 49,
+  image: 'image/plant.jpeg'
+})"
+class="btn-primary text-white px-3 py-2 rounded-lg text-sm font-medium">
+    <i class="fas fa-cart-plus mr-1"></i> Add
+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: Sports -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-900">Sports</h2>
+              <a href="sports.html" class="text-purple-600 font-semibold">View All →</a>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Product Card 1 -->
+                <div class="product-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
+                    <div class="aspect-square bg-gray-200 flex items-center justify-center relative overflow-hidden">
+                        <img src="image/nike shoes.jpeg" alt="Running Shoes" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-semibold text-gray-900 mb-1">Running Shoes</h3>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <span class="text-xs text-gray-500 ml-1">(321)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-gray-900">$129.00</span>
+                            <button
+onclick="addToCart({
+  id: 213,
+  name: 'Running Shoes',
+  price: 129,
+  image: 'image/nike shoes.jpeg'
+})"
+class="btn-primary text-white px-3 py-2 rounded-lg text-sm font-medium">
+    <i class="fas fa-cart-plus mr-1"></i> Add
+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="product-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
+                    <div class="aspect-square bg-gray-200 flex items-center justify-center relative overflow-hidden">
+                        <img src="image/yoga mat.jpeg" alt="Yoga Mat" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-semibold text-gray-900 mb-1">Yoga Mat</h3>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="far fa-star text-yellow-400 text-sm"></i>
+                            <span class="text-xs text-gray-500 ml-1">(89)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-gray-900">$49.00</span>
+                            <button
+onclick="addToCart({
+  id: 214,
+  name: 'Yoga Mat',
+  price: 49,
+  image: 'image/yoga mat.jpeg'
+})"
+class="btn-primary text-white px-3 py-2 rounded-lg text-sm font-medium">
+    <i class="fas fa-cart-plus mr-1"></i> Add
+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="product-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
+                    <div class="aspect-square bg-gray-200 flex items-center justify-center relative overflow-hidden">
+                        <img src="image/dumbells set.jpeg" alt="Dumbbells Set" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-semibold text-gray-900 mb-1">Dumbbells Set</h3>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <span class="text-xs text-gray-500 ml-1">(176)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-gray-900">$89.00</span>
+                            <button
+onclick="addToCart({
+  id: 215,
+  name: 'Dumbbells Set',
+  price: 89,
+  image: 'image/dumbells set.jpeg'
+})"
+class="btn-primary text-white px-3 py-2 rounded-lg text-sm font-medium">
+    <i class="fas fa-cart-plus mr-1"></i> Add
+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 4 -->
+                <div class="product-card bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100">
+                    <div class="aspect-square bg-gray-200 flex items-center justify-center relative overflow-hidden">
+                        <img src="image/gym bag.jpeg" alt="Gym Backpack" class="w-full h-full object-cover hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-semibold text-gray-900 mb-1">Gym Backpack</h3>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="fas fa-star text-yellow-400 text-sm"></i>
+                            <i class="far fa-star text-yellow-400 text-sm"></i>
+                            <span class="text-xs text-gray-500 ml-1">(72)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-xl font-bold text-gray-900">$79.00</span>
+                            <button
+onclick="addToCart({
+  id: 216,
+  name: 'Gym Backpack',
+  price: 79,
+  image: 'image/gym bag.jpeg'
+})"
+class="btn-primary text-white px-3 py-2 rounded-lg text-sm font-medium">
+    <i class="fas fa-cart-plus mr-1"></i> Add
+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 px-4">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <h3
+                    class="text-2xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    Cartify</h3>
+                <p class="text-gray-400 mb-4">Your premium shopping destination for the latest trends and best deals.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-semibold mb-4">Quick Links</h4>
+                <ul class="space-y-2 text-gray-400">
+                    <li><a href="aboutus.html" class="hover:text-white transition">About Us</a></li>
+                    <li><a href="#" class="hover:text-white transition">Contact</a></li>
+                    <li><a href="#" class="hover:text-white transition">FAQs</a></li>
+                    <li><a href="#" class="hover:text-white transition">Blog</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold mb-4">Customer Service</h4>
+                <ul class="space-y-2 text-gray-400">
+                    <li><a href="#" class="hover:text-white transition">Shipping Info</a></li>
+                    <li><a href="#" class="hover:text-white transition">Returns</a></li>
+                    <li><a href="#" class="hover:text-white transition">Order Tracking</a></li>
+                    <li><a href="#" class="hover:text-white transition">Size Guide</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold mb-4">Payment Methods</h4>
+                <div class="flex flex-wrap gap-2">
+                    <i class="fab fa-cc-visa text-2xl text-gray-400"></i>
+                    <i class="fab fa-cc-mastercard text-2xl text-gray-400"></i>
+                    <i class="fab fa-cc-paypal text-2xl text-gray-400"></i>
+                    <i class="fab fa-cc-apple-pay text-2xl text-gray-400"></i>
+                </div>
+                <p class="text-gray-400 mt-4 text-sm">Secure payments powered by industry-leading encryption.</p>
+            </div>
+        </div>
+        <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2025 Cartify. All rights reserved. | Privacy Policy | Terms of Service <br>
+                Made with ❤️ by Devdutt Kumar Nikhil
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        function addToCart() {
+            alert("Product added to cart");
+        }
+
+        window.addEventListener("load", function () {
+    const loader = document.getElementById("pageLoader");
+    setTimeout(() => {
+      loader.style.display = "none";
+    }, 400); // loader duration (ms)
+  });
+
+
+    </script>
+
+
+<script>
+function getCart() {
+    return JSON.parse(localStorage.getItem('cartify_cart')) || [];
+}
+
+function saveCart(cart) {
+    localStorage.setItem('cartify_cart', JSON.stringify(cart));
+    updateCartBadge();
+}
+
+function updateCartBadge() {
+    const cart = getCart();
+    const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const badge = document.getElementById('cartBadge');
+    if (badge) {
+        badge.textContent = total;
+        badge.style.display = total > 0 ? 'flex' : 'none';
+    }
+}
+
+function addToCart(product) {
+    let cart = getCart();
+    const existing = cart.find(item => item.id === product.id);
+
+    if (existing) {
+        existing.quantity += 1;
+    } else {
+        cart.push({
+            ...product,
+            quantity: 1
+        });
+    }
+
+    saveCart(cart);
+
+    // small success feedback
+    alert(product.name + ' added to cart');
+}
+
+document.addEventListener('DOMContentLoaded', updateCartBadge);
+</script>
+
+</body>
+</html>
