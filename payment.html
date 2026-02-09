@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment & Checkout | Cartify</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="favicon.ico.png">
+
+    <style>
+        .gradient-purple {
+            background: linear-gradient(to right, #6b21a8, #a855f7);
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #6b21a8, #a855f7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .payment-option {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .payment-option.active {
+            border-color: #a855f7;
+            box-shadow: 0 4px 14px rgba(168, 85, 247, 0.2);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-sans">
+
+
+    <!-- Page Loader -->
+<div id="pageLoader" class="fixed inset-0 bg-white flex items-center justify-center z-50">
+  <div class="flex flex-col items-center">
+    <div class="w-16 h-16 border-4 border-purple-200 border-t-purple-600 rounded-full animate-spin"></div>
+    <p class="mt-4 text-purple-600 font-semibold text-lg">Loading Cartify...</p>
+  </div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="bg-white shadow-sm sticky top-0 z-10">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+        <a href="index.html" class="text-2xl font-bold gradient-text">
+  Cartify
+</a>
+
+        <a href="cart.html" class="text-gray-700 hover:text-purple-600">
+            
+        </a>
+    </div>
+</nav>
+
+<!-- HEADER -->
+<header class="gradient-purple text-white py-10 text-center">
+    <h1 class="text-3xl font-bold mb-2">Payment & Checkout</h1>
+    <p class="opacity-90">Choose your preferred payment method</p>
+</header>
+
+<!-- MAIN -->
+<main class="max-w-5xl mx-auto px-4 py-8">
+    <div class="bg-white rounded-lg shadow-lg p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- PAYMENT METHODS -->
+        <div class="md:col-span-2">
+            <h2 class="text-xl font-semibold mb-4">Payment Method</h2>
+
+            <div class="space-y-4">
+                <div class="payment-option active p-4 bg-gray-50 rounded-lg cursor-pointer"
+                     onclick="selectPayment('cod', this)">
+                    <h3 class="font-semibold">Cash on Delivery</h3>
+                    <p class="text-sm text-gray-600">Pay when product is delivered</p>
+                </div>
+
+                <div class="payment-option p-4 bg-gray-50 rounded-lg cursor-pointer"
+                     onclick="selectPayment('upi', this)">
+                    <h3 class="font-semibold">UPI</h3>
+                    <p class="text-sm text-gray-600">Google Pay / PhonePe / Paytm</p>
+                    <input id="upiField" type="text"
+                           class="hidden mt-3 w-full p-2 border rounded"
+                           placeholder="name@upi">
+                </div>
+
+                <div class="payment-option p-4 bg-gray-50 rounded-lg cursor-pointer"
+                     onclick="selectPayment('card', this)">
+                    <h3 class="font-semibold">Card</h3>
+                    <p class="text-sm text-gray-600">Debit / Credit Card</p>
+                    <div id="cardFields" class="hidden mt-3 space-y-2">
+                        <input class="w-full p-2 border rounded" placeholder="Card Number">
+                        <input class="w-full p-2 border rounded" placeholder="Card Holder Name">
+                        <div class="flex gap-2">
+                            <input class="w-1/2 p-2 border rounded" placeholder="MM/YY">
+                            <input class="w-1/2 p-2 border rounded" placeholder="CVV">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ORDER SUMMARY -->
+        <div class="bg-gray-50 p-5 rounded-lg">
+            <h2 class="text-xl font-semibold mb-4">Order Summary</h2>
+
+            <div id="orderSummary" class="space-y-3"></div>
+
+            <div class="border-t pt-3 mt-4 space-y-2">
+                <div class="flex justify-between">
+                    <span>Subtotal</span>
+                    <span id="subtotalAmount">$0.00</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Delivery</span>
+                    <span class="text-green-600">Free</span>
+                </div>
+                <div class="flex justify-between font-bold text-lg">
+                    <span>Total</span>
+                    <span class="text-purple-600" id="totalAmount">$0.00</span>
+                </div>
+            </div>
+
+            <button onclick="placeOrder()"
+                class="mt-6 w-full gradient-purple text-white py-3 rounded-lg font-semibold">
+                Place Order
+            </button>
+
+            <a href="cart.html"
+               class="block text-center mt-3 text-gray-600 hover:text-purple-600">
+                ← Return to Cart
+            </a>
+        </div>
+
+    </div>
+
+
+</main>
+
+<!-- SUCCESS POPUP -->
+<div id="successPopup"
+     class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
+    <div class="bg-white p-6 rounded-lg text-center">
+        <i class="fas fa-check-circle text-green-500 text-4xl mb-3"></i>
+        <h2 class="text-xl font-bold mb-2">Order Placed Successfully</h2>
+        <button onclick="closePopup()"
+            class="gradient-purple text-white px-6 py-2 rounded mt-3">
+            OK
+        </button>
+    </div>
+</div>
+
+<!-- Placing Order Loader -->
+<div id="placingOrderPopup"
+     class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+    <div class="bg-white p-8 rounded-lg text-center w-80">
+        <div class="w-12 h-12 mx-auto border-4 border-purple-200 border-t-purple-600 rounded-full animate-spin"></div>
+        <p class="mt-4 text-lg font-semibold text-purple-600">
+            Placing your order...
+        </p>
+        <p class="text-sm text-gray-500 mt-1">Please wait</p>
+    </div>
+</div>
+
+
+<!-- SCRIPT -->
+<script>
+let currentPayment = "cod";
+
+/* PAYMENT SELECT */
+function selectPayment(method, el) {
+    currentPayment = method;
+    document.querySelectorAll(".payment-option")
+        .forEach(p => p.classList.remove("active"));
+    el.classList.add("active");
+
+    document.getElementById("upiField").classList.toggle("hidden", method !== "upi");
+    document.getElementById("cardFields").classList.toggle("hidden", method !== "card");
+}
+
+/* LOAD CART */
+function getCart() {
+    return JSON.parse(localStorage.getItem("cartify_cart")) || [];
+}
+
+function loadOrderSummary() {
+    const cart = getCart();
+    const container = document.getElementById("orderSummary");
+    const subtotalEl = document.getElementById("subtotalAmount");
+    const totalEl = document.getElementById("totalAmount");
+
+    container.innerHTML = "";
+    let subtotal = 0;
+
+    if (cart.length === 0) {
+        container.innerHTML = `<p class="text-gray-500 text-sm text-center">
+            Your cart is empty
+        </p>`;
+        subtotalEl.textContent = "$0.00";
+        totalEl.textContent = "$0.00";
+        return;
+    }
+
+    cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        subtotal += itemTotal;
+
+        container.innerHTML += `
+            <div class="flex justify-between text-sm">
+                <span>${item.name} × ${item.quantity}</span>
+                <span>$${itemTotal.toFixed(2)}</span>
+            </div>
+        `;
+    });
+
+    subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+    totalEl.textContent = `$${subtotal.toFixed(2)}`;
+}
+
+/* PLACE ORDER */
+
+
+
+
+document.addEventListener("DOMContentLoaded", loadOrderSummary);
+
+
+window.addEventListener("load", function () {
+    const loader = document.getElementById("pageLoader");
+    setTimeout(() => {
+      loader.style.display = "none";
+    }, 400); // loader duration (ms)
+  });
+
+
+
+
+function placeOrder() {
+
+    // Show placing order animation
+    document.getElementById("placingOrderPopup").classList.remove("hidden");
+
+    // 3.5 seconds delay
+    setTimeout(() => {
+
+        // Hide loader
+        document.getElementById("placingOrderPopup").classList.add("hidden");
+
+        // Clear cart
+        localStorage.removeItem("cartify_cart");
+
+        // Show success popup
+        document.getElementById("successPopup").classList.remove("hidden");
+
+    }, 3500);
+}
+
+function closePopup() {
+    document.getElementById("successPopup").classList.add("hidden");
+    window.location.href = "ShopNow.html";
+}
+
+</script>
+
+
+</body>
+</html>
